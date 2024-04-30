@@ -866,6 +866,7 @@ fn copy_files_and_run<R: Read + Seek>(
       }
       cmd.spawn().expect("installer failed to start");
 
+      crate::api::process::kill_children();
       exit(0);
     } else if found_path.extension() == Some(OsStr::new("msi")) {
       if with_elevated_task {
@@ -899,6 +900,7 @@ fn copy_files_and_run<R: Read + Seek>(
 
               if exit_status.success() {
                 // Successfully launched task that skips the UAC prompt
+                crate::api::process::kill_children();
                 exit(0);
               }
             }
@@ -962,7 +964,7 @@ fn copy_files_and_run<R: Read + Seek>(
           .arg("/promptrestart")
           .spawn();
       }
-
+      crate::api::process::kill_children();
       exit(0);
     }
   }
