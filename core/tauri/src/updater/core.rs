@@ -1005,6 +1005,7 @@ fn copy_files_and_run(
 
               if exit_status.success() {
                 // Successfully launched task that skips the UAC prompt
+                crate::api::process::kill_children();
                 exit(0);
               }
             }
@@ -1087,6 +1088,7 @@ fn copy_files_and_run(
     return Err(Error::Io(std::io::Error::last_os_error()));
   }
 
+  crate::api::process::kill_children();
   exit(0);
 }
 
