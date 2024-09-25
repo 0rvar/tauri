@@ -959,8 +959,6 @@ fn copy_files_and_run(
       .iter()
       .map(OsStr::new)
       .chain(once(OsStr::new("/UPDATE")))
-      .chain(once(OsStr::new("/ARGS")))
-      .chain(env.args.iter().map(OsStr::new))
       .chain(
         config
           .tauri
